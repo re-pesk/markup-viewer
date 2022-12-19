@@ -9,9 +9,16 @@
     "preview": "vite preview"
   },
   "devDependencies": {
-    "vite": "^3.2.3"
+    "vite": "^3.2.3",
+    "vite-plugin-markdown": "^2.1.0"
   },
   "dependencies": {
-    "vite-plugin-virtual-plain-text": "^1.2.2"
+    "vite-plugin-virtual-plain-text": "^1.2.2",
+    "markdown-it": "^13.0.1",
+    "markdown-it-abbr": "^1.0.4",
+    "markdown-it-ins": "^3.0.1",
+    "markdown-it-mark": "^3.0.1",
+    "markdown-it-sub": "^1.0.0",
+    "markdown-it-sup": "^1.0.0"
   }
 }

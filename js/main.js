@@ -1,9 +1,12 @@
-import '../css/style.css'
-import viteLogo from '../img/vite.svg'
-import javascriptLogo from './img/javascript.svg'
+import '/css/style.css'
+import viteLogo from '/img/vite.svg'
+import javascriptLogo from '/img/javascript.svg'
 import { setupCounter } from './counter.js'
+import { attributes, html, toc } from '/content/the-doc.md';
 
 //  import md from './the-doc.md' assert { type: 'text' }
+console.log(attributes) //=> { title: 'Awesome Title', description: 'Describe this awesome content', tags: ['great', 'awesome', 'rad'] }
+console.log(toc) //=> { title: 'Awesome Title', description: 'Describe this awesome content', tags: ['great', 'awesome', 'rad'] }
 
 
 document.querySelector('#app').innerHTML = `
@@ -24,13 +27,19 @@ document.querySelector('#app').innerHTML = `
     <p><div id="json"></div></p>
   </div>
 `
-setupCounter(document.querySelector('#counter'))
+// setupCounter(document.querySelector('#counter'))
 
-const { json } = await import('../test.json')
+const { json } = await import('/content/test.json')
 document.querySelector('#json').innerHTML += `${JSON.stringify(json)}`
 
-const md = (await import('@virtual:plain-text/the-doc.md')).plainText
-document.querySelector('#md').innerHTML = `<pre>${md}</pre>`
+// const md = (await import('@virtual:plain-text/the-doc.md')).plainText
+// document.querySelector('#md').innerHTML = `<pre>${md}</pre>`
 
 // console.log(window.location.search.slice(1));
 
+document.querySelector('#md').innerHTML += `<h1>Document title: ${attributes.title}</h1>
+<p>Document description: ${attributes.description}</p>
+<p>Tags: #${attributes.tags.join(', #')}</p>`;
+document.querySelector('#md').innerHTML += `<div><p>${html}</p></div>`;
+
+setupCounter(document.querySelector('#counter'))

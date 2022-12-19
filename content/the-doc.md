@@ -18,11 +18,11 @@ Vite is an opinionated web dev build tool that serves your code via native ES Mo
 * This is **bold** text.
 * This is *italic* text.
 * This is ***bold italic*** text.
-* This is ++inserted++ text. (disabled)
+* This is ++inserted++ text.
 * This is ~~deleted~~ text.
-* This is ==marked== text. (disabled)
-* This is ^super^script text. (disabled)
-* This is ~sub~script text. (disabled)
+* This is ==marked== text.
+* This is ^super^script text.
+* This is ~sub~script text.
 
 ### Hyperlinks
 
@@ -33,7 +33,7 @@ Vite is an opinionated web dev build tool that serves your code via native ES Mo
 
 [hyper-link]: <https://en.wikipedia.org/wiki/Hyperlink>
 
-### Abbreviations (disabled)
+### Abbreviations
 
 *[Hyperlink]: Digital reference to data that the user can follow or be guided by clicking or tapping.
 
@@ -43,4 +43,4 @@ Paragraph
 
 Another paragraph
 
-![Wikipedia logo](./contents/img/Hyperlink-Wikipedia.svg.png)
+![Wikipedia logo](/content/img/Hyperlink-Wikipedia.svg.png)

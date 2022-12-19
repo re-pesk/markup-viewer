@@ -40,8 +40,8 @@ h1 {
 
 #app {
   max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
+  margin: auto 0 ;
+  padding: 0 2rem;
   text-align: center;
 }
 
@@ -95,4 +95,15 @@ button:focus-visible {
   button {
     background-color: #f9f9f9;
   }
+}
+
+aside {
+  padding: auto;
+  margin: auto;
+  width: 20em;
+}
+
+main {
+  margin-left: 10em;
+  padding-left: 10em;
 }
