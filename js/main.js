@@ -9,22 +9,25 @@ console.log(attributes) //=> { title: 'Awesome Title', description: 'Describe th
 console.log(toc) //=> { title: 'Awesome Title', description: 'Describe this awesome content', tags: ['great', 'awesome', 'rad'] }
 
 
-document.querySelector('#app').innerHTML = `
-  <div>
-    <a href="https://vitejs.dev" target="_blank">
-      <img src="${viteLogo}" class="logo" alt="Vite logo" />
-    </a>
-    <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript" target="_blank">
-      <img src="${javascriptLogo}" class="logo vanilla" alt="JavaScript logo" />
-    </a>
-    <h1>Hello Vite!</h1>
-    <div class="card">
-      <button id="counter" type="button"></button>
+document.querySelector('#aside').innerHTML = `
+  <div id="toc">
+    <h1>Contents</h1>
+    <div id="toc-inner">
+      <a href="https://vitejs.dev" target="_blank">
+        <img src="${viteLogo}" class="logo" alt="Vite logo" />
+      </a>
+      <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript" target="_blank">
+        <img src="${javascriptLogo}" class="logo vanilla" alt="JavaScript logo" />
+      </a>
+      <h1>Hello Vite!</h1>
+      <div class="card">
+        <button id="counter" type="button"></button>
+      </div>
+      <p class="read-the-docs">
+        Click on the Vite logo to learn more
+      </p>
+      <p><div id="json"></div></p>
     </div>
-    <p class="read-the-docs">
-      Click on the Vite logo to learn more
-    </p>
-    <p><div id="json"></div></p>
   </div>
 `
 // setupCounter(document.querySelector('#counter'))
@@ -37,9 +40,11 @@ document.querySelector('#json').innerHTML += `${JSON.stringify(json)}`
 
 // console.log(window.location.search.slice(1));
 
-document.querySelector('#md').innerHTML += `<h1>Document title: ${attributes.title}</h1>
+
+
+document.querySelector('#main').innerHTML += `<div><h1>Document title: ${attributes.title}</h1>
 <p>Document description: ${attributes.description}</p>
-<p>Tags: #${attributes.tags.join(', #')}</p>`;
-document.querySelector('#md').innerHTML += `<div><p>${html}</p></div>`;
+<p>Tags: #${attributes.tags.join(', #')}</p>
+<p>${html}</p></div>`;
 
 setupCounter(document.querySelector('#counter'))
