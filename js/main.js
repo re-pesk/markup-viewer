@@ -1,50 +1,31 @@
-import '/css/style.css'
-import viteLogo from '/img/vite.svg'
-import javascriptLogo from '/img/javascript.svg'
-import { setupCounter } from './counter.js'
-import { attributes, html, toc } from '/content/the-doc.md';
-
-//  import md from './the-doc.md' assert { type: 'text' }
-console.log(attributes) //=> { title: 'Awesome Title', description: 'Describe this awesome content', tags: ['great', 'awesome', 'rad'] }
-console.log(toc) //=> { title: 'Awesome Title', description: 'Describe this awesome content', tags: ['great', 'awesome', 'rad'] }
-
+import '/css/style.css';
+import { setupCounter } from './counter.js';
 
 document.querySelector('#aside').innerHTML = `
   <div id="toc">
     <h1>Contents</h1>
     <div id="toc-inner">
-      <a href="https://vitejs.dev" target="_blank">
-        <img src="${viteLogo}" class="logo" alt="Vite logo" />
-      </a>
-      <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript" target="_blank">
-        <img src="${javascriptLogo}" class="logo vanilla" alt="JavaScript logo" />
-      </a>
-      <h1>Hello Vite!</h1>
-      <div class="card">
-        <button id="counter" type="button"></button>
-      </div>
-      <p class="read-the-docs">
-        Click on the Vite logo to learn more
-      </p>
+      <p><div id="links"></div></p>
+      <p><button id="counter" type="button"></button></p>
       <p><div id="json"></div></p>
     </div>
   </div>
 `
-// setupCounter(document.querySelector('#counter'))
+const { attributes, html, toc } = await import('/content/md-test.md');
+const { json } = await import('/content/test.json');
 
-const { json } = await import('/content/test.json')
-document.querySelector('#json').innerHTML += `${JSON.stringify(json)}`
+console.log(`attributes: ${attributes}`);
+console.log(`toc: ${toc}`);
 
-// const md = (await import('@virtual:plain-text/the-doc.md')).plainText
-// document.querySelector('#md').innerHTML = `<pre>${md}</pre>`
+document.querySelector('#links').innerHTML = `${JSON.stringify(toc)}`;
+document.querySelector('#json').innerHTML = `${JSON.stringify(json)}`
 
-// console.log(window.location.search.slice(1));
-
-
-
-document.querySelector('#main').innerHTML += `<div><h1>Document title: ${attributes.title}</h1>
-<p>Document description: ${attributes.description}</p>
-<p>Tags: #${attributes.tags.join(', #')}</p>
-<p>${html}</p></div>`;
+document.querySelector('#main').innerHTML += `
+  <div>
+    ${attributes?.title ? `<h1>Document title: ${attributes?.title}</h1>` : ''}
+    ${attributes?.description ? `<p>Document description: ${attributes.description}</p>` : ''}
+    ${attributes?.tags ? `<p>Tags: ( #${attributes?.tags?.join('; #')} )</p>` : ''}
+    <p>${html}</p>
+  </div>`;
 
 setupCounter(document.querySelector('#counter'))

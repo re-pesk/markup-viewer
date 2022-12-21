@@ -172,6 +172,7 @@ input[type="radio"] {
 
 input[type="search"] {
   -webkit-appearance: textfield;
+  appearance: textfield;
   -moz-box-sizing: content-box;
   -webkit-box-sizing: content-box;
   box-sizing: content-box;
@@ -180,6 +181,7 @@ input[type="search"] {
 input[type="search"]::-webkit-search-cancel-button,
 input[type="search"]::-webkit-search-decoration {
   -webkit-appearance: none;
+  appearance: none;
 }
 
 button::-moz-focus-inner,
@@ -403,26 +405,26 @@ h6 {
   -webkit-border-radius: 0.2em;
   -moz-border-radius: 0.2em;
   border-radius: 0.2em;
-  foreground-color: #cb4b16;
+  color: #cb4b16;
 }
 
 .HOLD {
   -webkit-border-radius: 0.2em;
   -moz-border-radius: 0.2em;
   border-radius: 0.2em;
-  foreground-color: #d33682;
+  color: #d33682;
 }
 
 .NOTE {
   -webkit-border-radius: 0.2em;
   -moz-border-radius: 0.2em;
   border-radius: 0.2em;
-  foreground-color: #d33682;
+  color: #d33682;
 }
 
 .CANCELLED {
   -webkit-border-radius: 0.2em;
   -moz-border-radius: 0.2em;
   border-radius: 0.2em;
-  foreground-color: #859900;
+  color: #859900;
 }

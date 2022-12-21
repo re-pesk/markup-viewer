@@ -10,11 +10,18 @@ const markdownIt = loadParser();
 
 // console.log(plainText);
 
+function test(s) {
+  return s.toLowerCase;
+}
+
 export default defineConfig({
+  target: 'es2022',
+  // root: 'app',
   plugins: [
     plainText(),
     mdPlugin({
       mode: ['html', 'toc'],
+      markdown: test,
       markdownIt: markdownIt
     }),
   ],

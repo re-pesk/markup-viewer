@@ -5,6 +5,8 @@ tags:
   - "great"
   - "awesome"
   - "rad"
+Tags:
+  - lialia
 ---
 
 # This is awesome
@@ -26,7 +28,7 @@ Vite is an opinionated web dev build tool that serves your code via native ES Mo
 
 ### Hyperlinks
 
-* This is https://en.wikipedia.org/wiki/Hyperlink (disabled)
+* This is https://en.wikipedia.org/wiki/Hyperlink
 * This is <https://en.wikipedia.org/wiki/Hyperlink>
 * This is [Hyperlink](https://en.wikipedia.org/wiki/Hyperlink)
 * This is [Hyperlink][hyper-link]
