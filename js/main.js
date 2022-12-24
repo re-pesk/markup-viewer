@@ -1,8 +1,14 @@
 import '/css/style.css';
+import Vite from '/img/vite.svg';
+import JS from '/img/javascript.svg';
 import { setupCounter } from './counter.js';
+import { attributes, html, toc } from '/content/md-test.md';
+import { json } from '/content/test.json';
 
 document.querySelector('#aside').innerHTML = `
   <div id="toc">
+    <img src="${Vite}"/>  <img src="${JS}"/>
+
     <h1>Contents</h1>
     <div id="toc-inner">
       <p><div id="links"></div></p>
@@ -11,8 +17,6 @@ document.querySelector('#aside').innerHTML = `
     </div>
   </div>
 `
-const { attributes, html, toc } = await import('/content/md-test.md');
-const { json } = await import('/content/test.json');
 
 console.log(`attributes: ${attributes}`);
 console.log(`toc: ${toc}`);

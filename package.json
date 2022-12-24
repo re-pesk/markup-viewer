@@ -18,7 +18,6 @@
     "markdown-it-mark": "^3.0.1",
     "markdown-it-sub": "^1.0.0",
     "markdown-it-sup": "^1.0.0",
-    "vite-plugin-markdown": "^2.1.0",
-    "vite-plugin-virtual-plain-text": "^1.2.2"
+    "vite-plugin-markdown": "^2.1.0"
   }
 }
