@@ -50,25 +50,16 @@ async function getContent() {
 
   setupCounter(tocContainer.querySelector('#counter'))
 
-  tocContainer.querySelector('#json').innerHTML = JSON5.stringify(JSON5.parse(await getResponseText('/content/test.json5')));
-
-  const main = docContainer.querySelector('#main');
-
-  // main.innerHTML = `
-  // <div>
-  //   ${attributes?.title ? `<h1>Document title: ${attributes?.title}</h1>` : ''}
-  //   ${attributes?.description ? `<p>Document description: ${attributes.description}</p>` : ''}
-  //   ${attributes?.tags ? `<p>Tags: ( #${attributes?.tags?.join('; #')} )</p>` : ''}
-  //   <p>${html}</p>
-  // </div>`;
+  const testJson5Content = await getResponseText('/content/test.json5');
+  tocContainer.querySelector('#json').innerHTML = JSON5.stringify(JSON5.parse(testJson5Content));
 
   const mdContent = await getResponseText('/content/md-test.md');
+  const mdHtml = mdParser.render(mdContent);
 
-  const mdHtml = mdParser.render(mdContent)
+  tocContainer.querySelector('#toc').innerHTML = metaData.toc;
 
-  // const metaHtml = `<h1>${metaData.title}</h1><p>${metaData.description}</p><p>Tags: ${metaData.tags.join(', ')}</p>`;
-  const metaHtml = `<h1>${metaData.title}</h1><p>${metaData.description}</p><p>Tags: (${metaData.tags.join('; ')})</p>`;
-  main.innerHTML = `${metaHtml}\n${mdHtml}`;
+  const frontMatter = `<h1>${metaData.frontMatter.title}</h1><p>${metaData.frontMatter.description}</p><p>Tags: (${metaData.frontMatter.tags.join('; ')})</p>`;
+  docContainer.querySelector('#main').innerHTML = `${frontMatter}\n${mdHtml}`;
 
   return docContainer;
 }

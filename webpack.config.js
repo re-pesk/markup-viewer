@@ -11,7 +11,7 @@ module.exports = {
   },
   plugins: [
     new HtmlWebpackPlugin({
-      title: 'Dynamic Loading',
+      title: 'Markup Viewer (Webpack)',
     }),
     new CopyPlugin({
       patterns: [

@@ -1,7 +1,7 @@
 const MarkdownIt = (await import('markdown-it')).default;
 
 const moduleDataList = [
-  // [ 'FrontMatter', (await import("markdown-it-front-matter")).default ],
+  [ 'FrontMatter', (await import("markdown-it-front-matter")).default ],
   // [ 'Metadata', (await import("markdown-it-metadata-block")).default ],
   [ 'Sub', (await import(`markdown-it-sub`)).default ],
   [ 'Sup', (await import(`markdown-it-sup`)).default ],
@@ -19,8 +19,9 @@ const moduleDataList = [
   // [ 'GridTable', (await import("markdown-it-gridtables")).default ],
   // [ 'Attrs', (await import("markdown-it-attr")).default ],
   // [ 'Aside', (await import("markdown-it-markua-aside")).asidePlugin ],
-  // [ 'Anchor', (await import("markdown-it-anchor")).default ],
+  [ 'Anchor', (await import("markdown-it-anchor")).default ],
   // [ 'Toc', (await import("markdown-it-table-of-contents")).default ],
+  [ 'TocDoneRight', (await import("markdown-it-toc-done-right")).default ],
   // [ 'Replacements', (await import("markdown-it-replacements")).default ],
   [ 'YAML', (await import("yaml")).default ],
 ];
@@ -32,7 +33,7 @@ export const modulesOptions = {
   // Metadata: { parseMetadata: YAML.load, meta },
   Container: "spoiler",
   MmdTable : { multiline: true, rowspan: true, headerless: true, multibody: true, autolabel: true },
-  // Anchor: { permalink: modules.Anchor.permalink.headerLink() },
+  Anchor: { permalink: modules.Anchor.permalink.headerLink() },
   // Anchor: { permalink: modules.Anchor.permalink.linkInsideHeader({ symbol: '$', placement: 'before' }) },
   YAML: { defer: true },
 }
@@ -48,10 +49,15 @@ export function loadParser(metaData) {
 
   modulesOptions.FrontMatter = (fm) => { 
     if (fm) {
-      const yaml = modules.YAML.parse(fm);
-      Object.assign(metaData, yaml);
+      metaData['frontMatter'] = modules.YAML.parse(fm);
     }
   };
+
+  modulesOptions.TocDoneRight = { callback: (html, ast) => {
+    if (html) {
+      metaData['toc'] = html;
+    }
+  }};
 
   const mdParser = new MarkdownIt({
     html: true,        // Enable HTML tags in source
