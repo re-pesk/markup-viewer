@@ -1,3 +1,13 @@
+---
+title: Cheatsheet - Markdown Syntax with GFM
+description: Extended markdown syntax
+tags:
+  - markadown
+  - extended
+  - gfm
+Tags:
+---
+
 # Cheatsheet - Markdown Syntax with GFM
 
 This cheatsheet uses markdown syntax based on:
@@ -619,7 +629,7 @@ nums = [x for x in range(10)]
 </style>
 #### header {.style-me}
 
-paragraph {data-toggle=modal .style-me} 
+paragraph {data-toggle=modal .style-me}
 
 paragraph *style me*{.red} more text
 

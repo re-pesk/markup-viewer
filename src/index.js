@@ -53,7 +53,7 @@ async function getContent() {
   const testJson5Content = await getResponseText('/content/test.json5');
   tocContainer.querySelector('#json').innerHTML = JSON5.stringify(JSON5.parse(testJson5Content));
 
-  const mdContent = await getResponseText('/content/md-test.md');
+  const mdContent = await getResponseText('/content/cheatsheet.md');
   const mdHtml = mdParser.render(mdContent);
 
   tocContainer.querySelector('#toc').innerHTML = metaData.toc;
