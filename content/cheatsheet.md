@@ -1,5 +1,5 @@
 ---
-title: Cheatsheet - Markdown Syntax with GFM
+title: Cheatsheet - Markdown Syntax with GFM MMM
 description: Extended markdown syntax
 tags:
   - markadown
@@ -7,6 +7,7 @@ tags:
   - gfm
 Tags:
 ---
+[Index](index.html)
 
 # Cheatsheet - Markdown Syntax with GFM
 
@@ -400,23 +401,23 @@ ___
 img[alt=img100x] {width: 100px; border: 5px solid red; border-radius: 25%}
 </style>
 
-    ![Alt Text](path_to/img.png)
-    ![Alt Text](path_to/img.png "Optional Title")
+    ![Alt Text](/content/img/Hyperlink-Wikipedia.svg.png)
+    ![Alt Text](/content/img/Hyperlink-Wikipedia.svg.png "Optional Title")
     ![Alt Text](http://placehold.it/150x100)
     ![broken image](http://localhost/my-broken-image)
 
-![Alt Text](path_to/img.png)
-![Alt Text](path_to/img.png "Optional Title")
+![Alt Text](/content/img/Hyperlink-Wikipedia.svg.png)
+![Alt Text](/content/img/Hyperlink-Wikipedia.svg.png "Optional Title")
 ![Alt Text](http://placehold.it/150x100)
 ![broken image](http://localhost/my-broken-image)
 
 Using plain html can be used to size images:
 
 ```html
-<img src="path_to/img.png" title="Optional Title" alt="Alt Text" style="width: 50px;">
+<img src="/content/img/Hyperlink-Wikipedia.svg.png" title="Optional Title" alt="Alt Text" style="width: 50px;">
 ```
 
-<img src="path_to/img.png" title="Optional Title" alt="Alt Text" style="width: 50px;">
+<img src="/content/img/Hyperlink-Wikipedia.svg.png" title="Optional Title" alt="Alt Text" style="width: 50px;">
 
 Styling images can also be done by hijacking on the `alt` attribute.
 
@@ -424,13 +425,13 @@ Styling images can also be done by hijacking on the `alt` attribute.
 <style>
 img[alt=img100x] {width: 100px; border: 5px solid red; border-radius: 25%}
 </style>
-![img100x](path_to/img.png)
+![img100x](/content/img/Hyperlink-Wikipedia.svg.png)
 ```
 
 <style>
 img[alt=img100x] {width: 100px; border: 5px solid red; border-radius: 25%}
 </style>
-![img100x](path_to/img.png)
+![img100x](/content/img/Hyperlink-Wikipedia.svg.png)
 
 ## Code
 

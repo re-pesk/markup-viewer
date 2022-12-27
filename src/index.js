@@ -1,6 +1,6 @@
 import './css/style.css';
-import Vite from './img/vite.svg';
-import JS from './img/javascript.svg';
+import Vite from './img/vite.svg?raw';
+import JS from './img/javascript.svg?raw';
 import { setupCounter } from './js/counter.js';
 import { loadParser } from './js/load-markdown-it.js'
 import JSON5 from 'json5';
@@ -29,7 +29,7 @@ async function getContent() {
   
   aside.innerHTML = `
     <div id="toc-container">
-      <img src="${Vite}"/>  <img src="${JS}"/>
+      <div>${Vite}${JS}</div>
       <h1>Contents</h1>
       <div id="toc-wrapper">
         <p><div id="toc"></div></p>
@@ -46,13 +46,21 @@ async function getContent() {
   const testJson5Content = await getResponseText('/content/test.json5');
   tocContainer.querySelector('#json').innerHTML = JSON5.stringify(JSON5.parse(testJson5Content));
 
-  const mdContent = await getResponseText('/content/cheatsheet.md');
+  let fileToLoad = '/content/index.md';
+  if(window.location.search.slice(1)) {
+    fileToLoad = `/content/${window.location.search.slice(1)}`;
+  }
+  const mdContent = await getResponseText(fileToLoad);
   const mdHtml = mdParser.render(mdContent);
 
   tocContainer.querySelector('#toc').innerHTML = metaData.toc;
 
-  const frontMatter = `<h1>${metaData.frontMatter.title}</h1><p>${metaData.frontMatter.description}</p><p>Tags: (${metaData.frontMatter.tags.join('; ')})</p>`;
+  let frontMatter = '';
+  if (metaData.frontMatter) {
+    frontMatter = `<h1>${metaData.frontMatter.title}</h1><p>${metaData.frontMatter.description}</p><p>Tags: (${metaData.frontMatter.tags.join('; ')})</p>`;
+  }
   docContainer.querySelector('#main').innerHTML = `${frontMatter}\n${mdHtml}`;
+
 
   return docContainer;
 }

@@ -9,16 +9,30 @@
     "preview": "vite preview"
   },
   "devDependencies": {
-    "vite": "^3.2.3"
+    "vite": "^3.2.3",
+    "vite-plugin-singlefile": "^0.13.2",
+    "vite-plugin-static-copy": "^0.13.0",
+    "vite-svg-loader": "^4.0.0"
   },
   "dependencies": {
+    "@humanwhocodes/markdown-it-markua-aside": "^0.2.0",
+    "@sup39/markdown-it-attr": "^1.2.2",
     "json5": "^2.2.2",
     "markdown-it": "^13.0.1",
     "markdown-it-abbr": "^1.0.4",
+    "markdown-it-admon": "^1.0.0",
     "markdown-it-anchor": "^8.6.6",
+    "markdown-it-bracketed-spans": "^1.0.1",
+    "markdown-it-complex-table": "^1.0.0",
+    "markdown-it-container": "^3.0.0",
+    "markdown-it-deflist": "^2.1.0",
+    "markdown-it-emoji": "^2.0.2",
+    "markdown-it-footnote": "^3.0.3",
     "markdown-it-front-matter": "^0.2.3",
+    "markdown-it-gridtables": "^0.5.0",
     "markdown-it-ins": "^3.0.1",
     "markdown-it-mark": "^3.0.1",
+    "markdown-it-multimd-table": "^4.2.0",
     "markdown-it-sub": "^1.0.0",
     "markdown-it-sup": "^1.0.0",
     "markdown-it-toc-done-right": "^4.2.0",
