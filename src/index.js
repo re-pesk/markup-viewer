@@ -2,39 +2,61 @@ import './css/style.css';
 import Vite from './img/vite.svg';
 import JS from './img/javascript.svg';
 import { setupCounter } from './js/counter.js';
-import { attributes, html, toc } from '/content/md-test.md';
-import { json } from '/content/test.json';
+import { loadParser } from './js/load-markdown-it.js'
+import JSON5 from 'json5';
 
-document.querySelector('body').innerHTML = `
-  <aside id="aside"></aside>
-  <main id="main"></main>
-`
+const metaData = {};
+const mdParser = loadParser(metaData);
 
-document.querySelector('#aside').innerHTML = `
-  <div id="toc">
-    <img src="${Vite}"/>  <img src="${JS}"/>
+async function getResponseText(url) {
+  return await fetch(url)
+    .then(response => {
+      if (!response.ok) {
+        throw new Error(`Failed to fetch ${url}: ${response.status} ${response.statusText}`);
+      }
+      return response.text();
+    });
+}
 
-    <h1>Contents</h1>
-    <div id="toc-inner">
-      <p><div id="links"></div></p>
-      <p><button id="counter" type="button"></button></p>
-      <p><div id="json"></div></p>
+async function getContent() {
+  const docContainer = document.createElement('div');
+  docContainer.innerHTML = `
+    <aside id="aside"></aside>
+    <main id="main"></main>
+  `;
+
+  const aside = docContainer.querySelector('#aside');
+  
+  aside.innerHTML = `
+    <div id="toc-container">
+      <img src="${Vite}"/>  <img src="${JS}"/>
+      <h1>Contents</h1>
+      <div id="toc-wrapper">
+        <p><div id="toc"></div></p>
+        <p><button id="counter" type="button"></button></p>
+        <p><div id="json"></div></p>
+      </div>
     </div>
-  </div>
-`
+  `
+  const tocContainer = aside.querySelector('#toc-container');
 
-console.log(`attributes: ${attributes}`);
-console.log(`toc: ${toc}`);
 
-document.querySelector('#links').innerHTML = `${JSON.stringify(toc)}`;
-document.querySelector('#json').innerHTML = `${JSON.stringify(json)}`
+  setupCounter(tocContainer.querySelector('#counter'))
 
-document.querySelector('#main').innerHTML += `
-  <div>
-    ${attributes?.title ? `<h1>Document title: ${attributes?.title}</h1>` : ''}
-    ${attributes?.description ? `<p>Document description: ${attributes.description}</p>` : ''}
-    ${attributes?.tags ? `<p>Tags: ( #${attributes?.tags?.join('; #')} )</p>` : ''}
-    <p>${html}</p>
-  </div>`;
+  const testJson5Content = await getResponseText('/content/test.json5');
+  tocContainer.querySelector('#json').innerHTML = JSON5.stringify(JSON5.parse(testJson5Content));
 
-setupCounter(document.querySelector('#counter'))
+  const mdContent = await getResponseText('/content/cheatsheet.md');
+  const mdHtml = mdParser.render(mdContent);
+
+  tocContainer.querySelector('#toc').innerHTML = metaData.toc;
+
+  const frontMatter = `<h1>${metaData.frontMatter.title}</h1><p>${metaData.frontMatter.description}</p><p>Tags: (${metaData.frontMatter.tags.join('; ')})</p>`;
+  docContainer.querySelector('#main').innerHTML = `${frontMatter}\n${mdHtml}`;
+
+  return docContainer;
+}
+
+const content = await getContent();
+
+document.body.appendChild(content);

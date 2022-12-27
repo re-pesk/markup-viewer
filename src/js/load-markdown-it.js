@@ -1,48 +1,41 @@
-const { loadModules } = await import("./helpers.js");
-
 const MarkdownIt = (await import('markdown-it')).default;
 
 const moduleDataList = [
-  // { name: 'FrontMatter', path: "./lib/markdown-it/markdown-it-front-matter.bundle.js", f: m => m.default },
-  // { name: 'Metadata', path: "./lib/markdown-it/markdown-it-metadata-block.bundle.js", f: m => m.default },
-  { name: 'Sub', path: "markdown-it-sub", import: 'default' },
-  { name: 'Sup', path: "markdown-it-sup", import: 'default' },
-  // { name: 'Footnote', path: "./lib/markdown-it/markdown-it-footnote.bundle.js", f: m => m.default },
-  // { name: 'Deflist', path: "./lib/markdown-it/markdown-it-deflist.bundle.js", f: m => m.default },
-  { name: 'Abbr', path: "markdown-it-abbr", import: 'default' },
-  // { name: 'Emoji', path: "./lib/markdown-it/markdown-it-emoji.bundle.js", f: m => m.default },
-  // { name: 'Container', path: "./lib/markdown-it/markdown-it-bracketed-spans.bundle.js", f: m => m.default },
-  // { name: 'BracketSpan', path: "./lib/markdown-it/markdown-it-container.bundle.js", f: m => m.default },
-  { name: 'Insert', path: "markdown-it-ins", import: 'default' },
-  { name: 'Mark', path: "markdown-it-mark", import: 'default' },
-  // { name: 'Admon', path: "./lib/markdown-it/markdown-it-admon.bundle.js", f: m => m.default },
-  // { name: 'MmdTable', path: "./lib/markdown-it/markdown-it-multimd-table.bundle.js", f: m => m.default },
-  // { name: 'YamlTable', path: "./lib/markdown-it/markdown-it-complex-table.bundle.js", f: m => m.default },
-  // { name: 'GridTable', path: "./lib/markdown-it/markdown-it-gridtables.bundle.js", f: m => m.default },
-  // { name: 'Attrs', path: "./lib/markdown-it/markdown-it-attr.bundle.js", f: m => m.default },
-  // { name: 'Aside', path: "./lib/markdown-it/markdown-it-markua-aside.bundle.js", f: m => m.asidePlugin },
-  // { name: 'Anchor', path: "./lib/markdown-it/markdown-it-anchor.bundle.js", f: m => m.default },
-  // { name: 'Toc', path: "./lib/markdown-it/markdown-it-table-of-contents.bundle.js", f: m => m.default },
-  // { name: 'Replacements', path: "./lib/markdown-it/markdown-it-replacements.bundle.js", f: m => m.default },
-  // { name: 'YAML', path: "./lib/markdown-it/yaml.bundle.js", f: m => m.default },
-]
+  [ 'FrontMatter', (await import('markdown-it-front-matter')).default ],
+  // [ 'Metadata', (await import('markdown-it-metadata-block')).default ],
+  [ 'Sub', (await import('markdown-it-sub')).default ],
+  [ 'Sup', (await import('markdown-it-sup')).default ],
+  // [ 'Footnote', (await import('markdown-it-footnote')).default ],
+  // [ 'Deflist', (await import('markdown-it-deflist')).default ],
+  [ 'Abbr', (await import('markdown-it-abbr')).default ],
+  // [ 'Emoji', (await import('markdown-it-emoji')).default ],
+  // [ 'Container', (await import('markdown-it-bracketed-spans')).default ],
+  // [ 'BracketSpan', (await import('markdown-it-container')).default ],
+  [ 'Insert', (await import('markdown-it-ins')).default ],
+  [ 'Mark', (await import('markdown-it-mark')).default ],
+  // [ 'Admon', (await import('markdown-it-admon')).default ],
+  // [ 'MmdTable', (await import('markdown-it-multimd-table')).default ],
+  // [ 'YamlTable', (await import('markdown-it-complex-table')).default ],
+  // [ 'GridTable', (await import('markdown-it-gridtables')).default ],
+  // [ 'Attrs', (await import('markdown-it-attr')).default ],
+  // [ 'Aside', (await import('markdown-it-markua-aside')).asidePlugin ],
+  [ 'Anchor', (await import('markdown-it-anchor')).default ],
+  // [ 'Toc', (await import('markdown-it-table-of-contents')).default ],
+  [ 'TocDoneRight', (await import('markdown-it-toc-done-right')).default ],
+  // [ 'Replacements', (await import('markdown-it-replacements')).default ],
+  [ 'YAML', (await import('yaml')).default ],
+];
 
-export const modules = await loadModules(moduleDataList)
+export const modules = Object.fromEntries(moduleDataList);
 
 export const modulesOptions = {
   MarkdownIt: { html: true, xhtmlOut: true, linkify: true, typography: true },
-  FrontMatter: { callback: (fm, token, state) => { 
-      mdParser.yaml = '';
-      if (fm) {
-        const yaml = modules.YAML.parse(fm);
-        console.log(`FrontMatter:\n`, yaml, yaml.title, yaml.b, yaml.tags);
-        mdParser.yaml = yaml;
-      }
-    }
-  },
   // Metadata: { parseMetadata: YAML.load, meta },
   Container: "spoiler",
-  MmdTable : { multiline: true, rowspan: true, headerless: true, multibody: true, autolabel: true }
+  MmdTable : { multiline: true, rowspan: true, headerless: true, multibody: true, autolabel: true },
+  Anchor: { permalink: modules.Anchor.permalink.headerLink() },
+  // Anchor: { permalink: modules.Anchor.permalink.linkInsideHeader({ symbol: '$', placement: 'before' }) },
+  YAML: { defer: true },
 }
 
 // modules.Replacements.replacements.push({
@@ -52,7 +45,19 @@ export const modulesOptions = {
 //   default: true
 // });
 
-export function loadParser() {
+export function loadParser(metaData) {
+
+  modulesOptions.FrontMatter = (fm) => { 
+    if (fm) {
+      metaData['frontMatter'] = modules.YAML.parse(fm);
+    }
+  };
+
+  modulesOptions.TocDoneRight = { callback: (html, ast) => {
+    if (html) {
+      metaData['toc'] = html;
+    }
+  }};
 
   const mdParser = new MarkdownIt({
     html: true,        // Enable HTML tags in source
@@ -60,61 +65,15 @@ export function loadParser() {
     linkify: true,
     typography: true,
   })
-    // .use(modules.FrontMatter, {
-    //   callback: (fm, token, state) => {
-    //     mdParser.yaml = '';
-    //     if (fm) {
-    //       const yaml = modules.YAML.parse(fm);
-    //       console.log(`FrontMatter:\n`, yaml, yaml.title, yaml.b, yaml.tags);
-    //       mdParser.yaml = yaml;
-    //     }
-    //   }
-    // })
-    // .use(Metadata, {
-    //   parseMetadata: YAML.load,
-    //   meta
-    // })
-    // .use(modules.Replacements)
-    // .use(modules.Sub)
-    // .use(modules.Sup)
-    // .use(modules.Footnote)
-    // .use(modules.Deflist)
-    // .use(modules.Abbr)
-    // .use(modules.Emoji)
-    // .use(modules.Container, "spoiler")
-    // .use(modules.BracketSpan)
-    // .use(modules.Insert)
-    // .use(modules.Mark)
-    // .use(modules.Admon)
-    // .use(modules.GridTable)
-    // .use(modules.MmdTable, {
-    //   multiline: true,
-    //   rowspan: true,
-    //   headerless: true,
-    //   multibody: true,
-    //   autolabel: true,
-    // })
-    // .use(modules.YamlTable)
-    // .use(modules.Attrs)
-    // .use(modules.Aside)
-    // .use(modules.Anchor, {
-    //   permalink: modules.Anchor.permalink.headerLink()
-    // })
-    // .use(modules.Anchor, {
-    //   permalink: modules.Anchor.permalink.linkInsideHeader({
-    //     symbol: '$',
-    //     placement: 'before'
-    //   })
-    // })
-    // .use(modules.Toc);
-    // .disable('anchor');
-  // .use(TocDoneRight)
 
   moduleDataList.forEach(moduleData => {
-    if (modulesOptions[moduleData.name]) {
-      mdParser.use(modules[moduleData.name], modulesOptions[moduleData.name])
+    if (modulesOptions[moduleData[0]]) {
+      if (modulesOptions[moduleData[0]].defer) {
+        return;
+      }
+      mdParser.use(modules[moduleData[0]], modulesOptions[moduleData[0]])
     } else {
-      mdParser.use(modules[moduleData.name])
+      mdParser.use(modules[moduleData[0]])
     }
   })
 
