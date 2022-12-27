@@ -1,7 +1,7 @@
 // vite.config.js
 import { defineConfig } from 'vite'
 import { plugin as mdPlugin } from 'vite-plugin-markdown'
-import { loadParser } from './js/load-markdown-it'
+import { loadParser } from './src/js/load-markdown-it'
 import dns from 'dns'
 dns.setDefaultResultOrder('verbatim')
 

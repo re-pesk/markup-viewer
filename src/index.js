@@ -1,9 +1,14 @@
-import '/css/style.css';
-import Vite from '/img/vite.svg';
-import JS from '/img/javascript.svg';
-import { setupCounter } from './counter.js';
+import './css/style.css';
+import Vite from './img/vite.svg';
+import JS from './img/javascript.svg';
+import { setupCounter } from './js/counter.js';
 import { attributes, html, toc } from '/content/md-test.md';
 import { json } from '/content/test.json';
+
+document.querySelector('body').innerHTML = `
+  <aside id="aside"></aside>
+  <main id="main"></main>
+`
 
 document.querySelector('#aside').innerHTML = `
   <div id="toc">
