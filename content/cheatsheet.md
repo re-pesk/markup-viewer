@@ -7,6 +7,7 @@ tags:
   - gfm
 Tags:
 ---
+[Index](index.html)
 
 # Cheatsheet - Markdown Syntax with GFM
 
