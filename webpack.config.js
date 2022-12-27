@@ -20,14 +20,12 @@ module.exports = {
     }),
   ],
   output: {
-    filename: '[name].bundle.js',
+    filename: '[name].js',
     path: path.resolve(__dirname, 'dist'),
     clean: true,
   },
   optimization: {
-    splitChunks: {
-      chunks: 'all',
-    },
+    runtimeChunk: 'single',
   },
   module: {
     rules: [

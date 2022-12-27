@@ -1,29 +1,53 @@
-const MarkdownIt = (await import('markdown-it')).default;
+import MarkdownIt from 'markdown-it';
+import FrontMatter from 'markdown-it-front-matter';
+// import Metadata from 'markdown-it-metadata-block';
+import Sub from 'markdown-it-sub';
+import Sup from 'markdown-it-sup';
+import Footnote from 'markdown-it-footnote';
+import Deflist from 'markdown-it-deflist';
+import Abbr from 'markdown-it-abbr';
+import Emoji from 'markdown-it-emoji';
+import Container from 'markdown-it-bracketed-spans';
+import BracketSpan from 'markdown-it-container';
+import Insert from 'markdown-it-ins';
+import Mark from 'markdown-it-mark';
+import Admon from 'markdown-it-admon';
+import MmdTable from 'markdown-it-multimd-table';
+import YamlTable from 'markdown-it-complex-table';
+import GridTable from 'markdown-it-gridtables';
+import Attrs from '@sup39/markdown-it-attr';
+import { asidePlugin as Aside } from '@humanwhocodes/markdown-it-markua-aside';
+import Anchor from 'markdown-it-anchor';
+// import Toc from 'markdown-it-table-of-contents';
+import TocDoneRight from 'markdown-it-toc-done-right';
+// import Replacements from 'markdown-it-replacements';
+import YAML from 'yaml';
 
-const moduleDataList = [
-  [ 'FrontMatter', (await import('markdown-it-front-matter')).default ],
-  // [ 'Metadata', (await import('markdown-it-metadata-block')).default ],
-  [ 'Sub', (await import('markdown-it-sub')).default ],
-  [ 'Sup', (await import('markdown-it-sup')).default ],
-  [ 'Footnote', (await import('markdown-it-footnote')).default ],
-  [ 'Deflist', (await import('markdown-it-deflist')).default ],
-  [ 'Abbr', (await import('markdown-it-abbr')).default ],
-  [ 'Emoji', (await import('markdown-it-emoji')).default ],
-  [ 'Container', (await import('markdown-it-bracketed-spans')).default ],
-  [ 'BracketSpan', (await import('markdown-it-container')).default ],
-  [ 'Insert', (await import('markdown-it-ins')).default ],
-  [ 'Mark', (await import('markdown-it-mark')).default ],
-  [ 'Admon', (await import('markdown-it-admon')).default ],
-  [ 'MmdTable', (await import('markdown-it-multimd-table')).default ],
-  [ 'YamlTable', (await import('markdown-it-complex-table')).default ],
-  [ 'GridTable', (await import('markdown-it-gridtables')).default ],
-  [ 'Attrs', (await import('@sup39/markdown-it-attr')).default ],
-  [ 'Aside', (await import('@humanwhocodes/markdown-it-markua-aside')).asidePlugin ],
-  [ 'Anchor', (await import('markdown-it-anchor')).default ],
-  // [ 'Toc', (await import('markdown-it-table-of-contents')).default ],
-  [ 'TocDoneRight', (await import('markdown-it-toc-done-right')).default ],
-  // [ 'Replacements', (await import('markdown-it-replacements')).default ],
-  [ 'YAML', (await import('yaml')).default ],
+export const moduleDataList = [
+  ['MarkdownIt', MarkdownIt],
+  ['FrontMatter', FrontMatter],
+  // ['Metadata', Metadata],
+  ['Sub', Sub],
+  ['Sup', Sup],
+  ['Footnote', Footnote],
+  ['Deflist', Deflist],
+  ['Abbr', Abbr],
+  ['Emoji', Emoji],
+  ['Container', Container],
+  ['BracketSpan', BracketSpan],
+  ['Insert', Insert],
+  ['Mark', Mark],
+  ['Admon', Admon],
+  ['MmdTable', MmdTable],
+  ['YamlTable', YamlTable],
+  ['GridTable', GridTable],
+  ['Attrs', Attrs],
+  ['Aside', Aside],
+  ['Anchor', Anchor],
+  // ['Toc', Toc],
+  ['TocDoneRight', TocDoneRight],
+  // ['Replacements', Replacements],
+  ['YAML', YAML],
 ];
 
 export const modules = Object.fromEntries(moduleDataList);
@@ -33,7 +57,7 @@ export const modulesOptions = {
   // Metadata: { parseMetadata: YAML.load, meta },
   Container: "spoiler",
   MmdTable : { multiline: true, rowspan: true, headerless: true, multibody: true, autolabel: true },
-  Anchor: { permalink: modules.Anchor.permalink.headerLink() },
+  Anchor: { permalink: Anchor.permalink.headerLink() },
   // Anchor: { permalink: modules.Anchor.permalink.linkInsideHeader({ symbol: '$', placement: 'before' }) },
   YAML: { defer: true },
 }
