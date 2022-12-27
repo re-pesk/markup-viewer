@@ -26,12 +26,12 @@ async function getContent() {
   `;
 
   const aside = docContainer.querySelector('#aside');
-  
+
   aside.innerHTML = `
     <div id="toc-container">
-      <div>${Vite}${JS}</div>
-      <h1>Contents</h1>
       <div id="toc-wrapper">
+        <div>${Vite}${JS}</div>
+        <h1>Contents</h1>
         <p><div id="toc"></div></p>
         <p><button id="counter" type="button"></button></p>
         <p><div id="json"></div></p>
@@ -47,7 +47,7 @@ async function getContent() {
   tocContainer.querySelector('#json').innerHTML = JSON5.stringify(JSON5.parse(testJson5Content));
 
   let fileToLoad = '/content/index.md';
-  if(window.location.search.slice(1)) {
+  if (window.location.search.slice(1)) {
     fileToLoad = `/content/${window.location.search.slice(1)}`;
   }
   const mdContent = await getResponseText(fileToLoad);
