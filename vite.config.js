@@ -4,7 +4,9 @@ import dns from 'dns'
 dns.setDefaultResultOrder('verbatim')
 
 export default defineConfig({
-  target: 'esnext',
+  build: {
+    target: 'esnext'
+  },
   // root: 'app',
   plugins: [
   ],
