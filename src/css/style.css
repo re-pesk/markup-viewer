@@ -256,12 +256,12 @@ aside::after {
   background: linear-gradient(top, rgba(227, 224, 216, 0) 0%, #e3e0d8 20%, #e3e0d8 80%, rgba(227, 224, 216, 0) 100%);
 }
 
-#toc {
+#toc-container {
   text-align: left;
   display: inline-block;
 }
 
-#toc-inner {
+#toc-wrapper {
   display: table-cell;
   vertical-align: middle;
   margin-left: 5em;
